@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mochi Heaven</title>
+  <meta name="description" content="Mochi Heaven | Mochi donuts, boba, ice cream and Korean rice dogs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="shell nav">
+    <a class="brand" href="#home">
+      <img src="assets/logo.png" alt="Mochi Heaven">
+    </a>
+
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+    <nav class="nav-links">
+      <a class="active" href="#home">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#visit">Visit Us</a>
+      <a href="#order">Order Online</a>
+    </nav>
+
+    <div class="nav-right">
+      <a class="social" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Zm5.2-3.2a1.05 1.05 0 1 1-1.05 1.05A1.05 1.05 0 0 1 17.2 6.3Z"/></svg>
+      </a>
+      <a class="social" href="https://www.tiktok.com/" target="_blank" rel="noreferrer" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M15.3 3c.4 2.2 1.7 3.5 3.7 3.9v2.5a8.8 8.8 0 0 1-3.7-1.1v6.1a5.6 5.6 0 1 1-4.8-5.5v2.6a3 3 0 1 0 2.3 2.9V3h2.5Z"/></svg>
+      </a>
+      <a class="order-top" href="#order">Order Now <span>▢</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="shell hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">WELCOME TO</p>
+        <h1>MOCHI<br>HEAVEN</h1>
+        <div class="tiny-rule"><span>♡</span></div>
+        <p class="lead">Chewy mochi donuts, refreshing boba,<br>
+          hand-scooped ice cream, and crispy<br>
+          Korean rice dogs.</p>
+
+        <a class="visit-pill" href="#visit">📍 <span>VISIT US</span></a>
+
+        <div class="favorite-box">
+          <span>★ CUSTOMER FAVORITE</span>
+          <strong>Passionfruit Pineapple ↗</strong>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <img src="assets/hero-products.png" alt="Mochi Heaven featured products">
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-area" id="menu">
+    <div class="shell">
+      <div class="menu-heading">
+        <p class="eyebrow">OUR MENU</p>
+        <h2>What are you craving?</h2>
+        <p>Click a category to filter the menu.</p>
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-filter="all">🍩 <span>All</span></button>
+        <button class="filter" data-filter="donuts">🍩 <span>Mochi Donuts</span></button>
+        <button class="filter" data-filter="boba">🧋 <span>Boba</span></button>
+        <button class="filter" data-filter="icecream">🍦 <span>Ice Cream</span></button>
+        <button class="filter" data-filter="ricedogs">🌭 <span>Rice Dogs</span></button>
+      </div>
+
+      <div class="cards">
+        <article class="menu-card" data-category="donuts">
+          <h3>🍩 MOCHI DONUTS</h3>
+          <div class="image-box"><img src="assets/donuts.png" alt="Mochi donuts"></div>
+          <p>Chewy, soft, and full of flavor.</p>
+          <button class="view-btn" data-menu="donuts">VIEW DONUTS →</button>
+        </article>
+
+        <article class="menu-card" data-category="boba">
+          <h3>🧋 BOBA DRINKS</h3>
+          <div class="image-box"><img src="assets/boba.png" alt="Boba drinks"></div>
+          <p>Refreshing drinks with real tea.</p>
+          <button class="view-btn" data-menu="boba">VIEW BOBA →</button>
+        </article>
+
+        <article class="menu-card" data-category="icecream">
+          <h3>🍦 ICE CREAM</h3>
+          <div class="image-box"><img src="assets/icecream.png" alt="Ice cream"></div>
+          <p>Hand-scooped & made with love.</p>
+          <button class="view-btn" data-menu="icecream">VIEW ICE CREAM →</button>
+        </article>
+
+        <article class="menu-card" data-category="ricedogs">
+          <h3>🌭 KOREAN RICE DOGS</h3>
+          <div class="image-box"><img src="assets/ricedogs.png" alt="Korean rice dogs"></div>
+          <p>Crispy outside, chewy inside.</p>
+          <button class="view-btn" data-menu="ricedogs">VIEW RICE DOGS →</button>
+        </article>
+      </div>
+
+      <div class="feature-strip">
+        <div><span class="feature-icon">⚬</span><span><strong>MADE FRESH DAILY</strong><small>Always fresh, always delicious.</small></span></div>
+        <div><span class="feature-icon">♧</span><span><strong>QUALITY INGREDIENTS</strong><small>Real ingredients, real flavor.</small></span></div>
+        <div><span class="feature-icon">♡</span><span><strong>SWEET MEMORIES</strong><small>Made to bring you joy.</small></span></div>
+        <div><span class="feature-icon">☺</span><span><strong>THANK YOU!</strong><small>Thank you for supporting our<br>small business!</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secondary" id="about">
+    <div class="shell secondary-grid">
+      <div>
+        <p class="eyebrow">ABOUT MOCHI HEAVEN</p>
+        <h2>Sweet treats, all in one place.</h2>
+        <p>Add your real Mochi Heaven story here. This section is lower on the page so the homepage first impression stays almost exactly like the reference design.</p>
+      </div>
+      <div class="soft-card">You can add a store photo here later.</div>
+    </div>
+  </section>
+
+  <section class="secondary white" id="visit">
+    <div class="shell secondary-grid">
+      <div>
+        <p class="eyebrow">VISIT US</p>
+        <h2>Come grab a treat.</h2>
+        <p>Add your actual store address, hours and phone number here.</p>
+      </div>
+      <div class="details">
+        <div><small>ADDRESS</small><strong>Your store address</strong></div>
+        <div><small>HOURS</small><strong>Your store hours</strong></div>
+        <div><small>PHONE</small><strong>Your phone number</strong></div>
+        <div><small>WEBSITE</small><strong>trymochiheaven.com</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secondary order-section" id="order">
+    <div class="shell order-row">
+      <div>
+        <p class="eyebrow">ORDER ONLINE</p>
+        <h2>Ready when you are.</h2>
+      </div>
+      <button class="order-top big-order" id="startOrder">Start Order</button>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="menuModal" aria-hidden="true">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" data-close>×</button>
+    <p class="eyebrow">MOCHI HEAVEN MENU</p>
+    <h2 id="modalTitle"></h2>
+    <div id="modalItems"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
