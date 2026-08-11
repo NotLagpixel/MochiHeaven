@@ -300,6 +300,23 @@ export default function Admin() {
             </section>
 
             <section className="admin-block">
+              <h3>Newsletter</h3>
+              <div className="grid2">
+                <div><label className="field-label">Title</label>
+                  <input className="field" value={draft.site.newsletter.title} onChange={(e) => setNested("newsletter", { title: e.target.value })} /></div>
+                <div><label className="field-label">Button text</label>
+                  <input className="field" value={draft.site.newsletter.buttonText} onChange={(e) => setNested("newsletter", { buttonText: e.target.value })} /></div>
+              </div>
+              <label className="field-label">Subtitle</label>
+              <textarea className="field" rows={2} value={draft.site.newsletter.subtitle} onChange={(e) => setNested("newsletter", { subtitle: e.target.value })} />
+              <label className="field-label">Success message (shown after someone subscribes)</label>
+              <input className="field" value={draft.site.newsletter.successMessage} onChange={(e) => setNested("newsletter", { successMessage: e.target.value })} />
+              <label className="field-label">Form endpoint URL (optional — e.g. a Formspree/Mailchimp form action)</label>
+              <input className="field mono" placeholder="https://formspree.io/f/xxxx" value={draft.site.newsletter.actionUrl} onChange={(e) => setNested("newsletter", { actionUrl: e.target.value })} />
+              <small className="muted">Leave empty to just show a thank-you message. Paste a form service endpoint to actually collect emails (the form POSTs the email there).</small>
+            </section>
+
+            <section className="admin-block">
               <h3>Highlights strip</h3>
               <div className="grid2">
                 {draft.site.features.map((f, i) => (

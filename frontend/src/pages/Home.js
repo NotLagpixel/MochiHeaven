@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { MapPin, ArrowUpRight, Sparkles, Leaf, Heart, Smile, ArrowRight } from "lucide-react";
 import { useContent } from "../context/ContentContext";
 import Reveal from "../components/Reveal";
+import Newsletter from "../components/Newsletter";
 
 const FEATURE_ICONS = { sparkles: Sparkles, leaf: Leaf, heart: Heart, smile: Smile };
 const PUB = process.env.PUBLIC_URL || "";
@@ -27,6 +28,7 @@ export default function Home() {
   const [filter, setFilter] = useState("all");
 
   const shown = content.categories.filter((c) => filter === "all" || c.id === filter);
+  const about = site.about;
 
   return (
     <main>
@@ -60,19 +62,13 @@ export default function Home() {
 
           <motion.div
             className="hero-image-wrap"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, delay: 0.1, ease: "easeOut" }}
           >
-            <Sparkle className="s1" size={22} delay={0} />
-            <Sparkle className="s2" size={16} delay={0.6} />
-            <Sparkle className="s3" size={26} delay={1.2} />
-            <Sparkle className="s4" size={14} delay={1.8} />
-            <motion.img
+            <img
               src={`${PUB}/assets/hero-products.png`}
               alt="Mochi Heaven featured products"
-              animate={{ y: [0, -14, 0] }}
-              transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
               data-testid="hero-image"
             />
           </motion.div>
@@ -152,6 +148,30 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      {/* ABOUT US */}
+      <section className="about-home" id="about-us" data-testid="about-home-section">
+        <div className="shell about-home-grid">
+          <Reveal className="about-home-photo" data-testid="about-home-photo">
+            {about.photo ? (
+              <img src={about.photo.startsWith("/assets") ? PUB + about.photo : about.photo} alt="Mochi Heaven" />
+            ) : (
+              <span>ADD STORE OR TEAM PHOTO</span>
+            )}
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="eyebrow">{about.eyebrow}</p>
+            <h2>{about.title}</h2>
+            <p className="about-home-body">{about.body}</p>
+            <Link className="visit-pill" to="/about" data-testid="about-home-readmore">
+              <span>Read our story</span> <ArrowRight size={17} />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* NEWSLETTER */}
+      <Newsletter />
     </main>
   );
 }

@@ -32,7 +32,16 @@
       { "icon": "leaf", "title": "QUALITY INGREDIENTS", "text": "Real ingredients, real flavor." },
       { "icon": "heart", "title": "SWEET MEMORIES", "text": "Made to bring you joy." },
       { "icon": "smile", "title": "THANK YOU!", "text": "Thank you for supporting our small business!" }
-    ]
+    ],
+    "newsletter": {
+      "eyebrow": "STAY SWEET",
+      "title": "Join our newsletter",
+      "subtitle": "Be first to hear about new flavors, seasonal specials and sweet surprises. No spam — just treats.",
+      "placeholder": "you@email.com",
+      "buttonText": "Subscribe",
+      "actionUrl": "",
+      "successMessage": "Thanks for subscribing! Keep an eye on your inbox for sweet updates."
+    }
   },
   "categories": [
     {
