@@ -25,6 +25,7 @@ Build an interactive restaurant website for "Mochi Heaven" following an exact pr
 
 ## Implemented (2026-06)
 - Homepage matching reference: hero (logo, MOCHI HEAVEN title, lead, VISIT US, customer favorite), interactive category filter, 4 category cards with VIEW buttons, feature/highlights strip.
+- Card/banner product images: generated on white, then background-removed to transparent PNGs (flood-fill from edges + large enclosed pockets, feathered) so products float and blend on cards with soft drop-shadows (no cropped/pasted look). White source backups in public/assets/_white_src.
 - Menu, About, Visit pages with editable placeholders; footer; order modal.
 - Hidden password-protected admin editor with Save/Publish/Import/Reset/Change-password.
 - Uses provided logo across header/footer/admin/favicon.
