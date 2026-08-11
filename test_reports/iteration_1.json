@@ -1,0 +1,27 @@
+{
+  "summary": "Frontend-only Playwright testing of Mochi Heaven static React site. Tested 32 UI/integration checks across Home, Menu, About, Visit, Admin, Order modal, Navigation, and Responsive/Mobile. 31/32 real functional checks PASS. The single initial failure (order-modal close) was a test-timing artifact from framer-motion exit animation, not a code bug - re-verified with proper wait: close X, OK button, and modal-bg backdrop all correctly close the modal. Hero title/customer-favorite edits in the private /admin panel persist to localStorage and are reflected on Home and after reload. Admin gate rejects wrong password and unlocks on 'mochiheaven'. Publish downloads content.json. No public admin/login anchor exists anywhere on the public UI (confirmed via DOM audit of all <a> and <button> elements). Category filter on Home correctly shows/hides cards. VIEW category buttons navigate to /menu with hash anchor. Nav links, brand-logo-link, and mobile hamburger all function. Add item in donuts category works (4 -> 5). Order modal opens correctly from ORDER NOW, nav-order (Order Online), and (implicitly) other order-pill buttons because orderUrl is empty.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "OPTIONAL (code quality/testability): Hero fields (Title line 1, Title line 2, Eyebrow, Customer favorite, Lead paragraph) in /app/frontend/src/pages/Admin.js do not have data-testid attributes on their <input> elements. Also individual menu item inputs (item name/price/desc) and category tagline/subtitle inputs lack data-testids. Adding data-testids like admin-hero-title1, admin-hero-titleLine2, admin-item-{catId}-{index}-name/price would make future automated testing far more robust. Currently the test suite has to rely on label-sibling xpath selectors."
+  ],
+  "critical_code_review_comments": [
+    "Admin password is stored client-side (localStorage) and default is a plain string 'mochiheaven' hardcoded in ContentContext - acceptable per the static/no-backend design, but user should be reminded that anyone who visits /admin can attempt passwords and the JS bundle exposes fallback default. Fine for a personal/small-shop static site but note it clearly.",
+    "Missing data-testids on Hero, About, Visit, Highlights, and individual menu item inputs inside Admin.js (see action_items).",
+    "AnimatePresence exit animation on OrderModal takes ~800-1200ms; if any consumer expects the modal to be removed synchronously (e.g., in tests), they need to wait. Not a bug.",
+    "App.js catch-all route '*' -> <Home /> silently swallows unknown URLs; consider a proper 404 page. Low priority."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (frontend-only app)", "frontend": "100% (all functional checks pass after correct wait timing)"},
+  "test_credentials": "Admin password: mochiheaven (client-side, from ContentContext default)",
+  "seed_data_creation": "None. Test cleaned up by removing 'mochi_content_v1' from localStorage after admin edit tests.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "This is a purely static frontend app (no backend). REACT_APP_BACKEND_URL is not set (and not needed). Preview URL is https://cb325d02-0ef7-4aa1-a2a5-b24d2940e889.preview.emergentagent.com. Admin is only reachable by directly typing /admin (no link in Navbar/Footer). Default admin password: 'mochiheaven'. When testing modal close, wait at least 1200ms for framer-motion exit animation. Hero admin inputs currently have no data-testid - use label sibling xpath such as //label[normalize-space()='Customer favorite']/following-sibling::input[1].",
+  "rca of the issue": "Initial 'order-modal closes via close btn' FAIL was a false negative: my first script waited only 300ms after clicking close, but the OrderModal uses framer-motion AnimatePresence with an exit animation that persists the DOM node until the animation finishes (~800-1200ms). After increasing the wait to 1500ms, count=0 and modal-bg + OK button + close X all remove the modal correctly. No fix needed in app code."
+}

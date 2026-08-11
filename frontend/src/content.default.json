@@ -1,0 +1,99 @@
+{
+  "site": {
+    "brandName": "Mochi Heaven",
+    "tagline": "made fresh daily",
+    "orderUrl": "",
+    "instagram": "https://instagram.com/",
+    "tiktok": "https://www.tiktok.com/",
+    "customerFavorite": "Passionfruit Pineapple",
+    "hero": {
+      "eyebrow": "WELCOME TO",
+      "titleLine1": "MOCHI",
+      "titleLine2": "HEAVEN",
+      "lead": "Chewy mochi donuts, refreshing boba, hand-scooped ice cream, and crispy Korean rice dogs."
+    },
+    "about": {
+      "eyebrow": "ABOUT MOCHI HEAVEN",
+      "title": "A little shop with a lot to love.",
+      "body": "Add your real Mochi Heaven story here. Tell customers who you are, what makes your treats special, and why you started. This placeholder is fully editable from the private admin panel.",
+      "photo": ""
+    },
+    "visit": {
+      "eyebrow": "VISIT MOCHI HEAVEN",
+      "title": "Come grab a treat.",
+      "address": "Your store address",
+      "hours": "Your store hours",
+      "phone": "Your phone number",
+      "website": "trymochiheaven.com",
+      "mapEmbed": ""
+    },
+    "features": [
+      { "icon": "sparkles", "title": "MADE FRESH DAILY", "text": "Always fresh, always delicious." },
+      { "icon": "leaf", "title": "QUALITY INGREDIENTS", "text": "Real ingredients, real flavor." },
+      { "icon": "heart", "title": "SWEET MEMORIES", "text": "Made to bring you joy." },
+      { "icon": "smile", "title": "THANK YOU!", "text": "Thank you for supporting our small business!" }
+    ]
+  },
+  "categories": [
+    {
+      "id": "donuts",
+      "emoji": "\ud83c\udf69",
+      "name": "MOCHI DONUTS",
+      "cardTitle": "MOCHI DONUTS",
+      "tagline": "Chewy, soft, and full of flavor.",
+      "sectionSubtitle": "Soft, chewy, colorful.",
+      "image": "/assets/donuts.png",
+      "items": [
+        { "name": "Strawberry", "desc": "Strawberry glaze with sprinkles.", "price": "$0.00", "image": "" },
+        { "name": "Chocolate", "desc": "Chocolate glaze with toppings.", "price": "$0.00", "image": "" },
+        { "name": "Ube", "desc": "Sweet purple ube glaze.", "price": "$0.00", "image": "" },
+        { "name": "Seasonal Flavor", "desc": "Replace with your current flavor.", "price": "$0.00", "image": "" }
+      ]
+    },
+    {
+      "id": "boba",
+      "emoji": "\ud83e\uddcb",
+      "name": "BOBA DRINKS",
+      "cardTitle": "BOBA DRINKS",
+      "tagline": "Refreshing drinks with real tea.",
+      "sectionSubtitle": "Refreshing drinks made your way.",
+      "image": "/assets/boba.png",
+      "items": [
+        { "name": "Brown Sugar Milk Tea", "desc": "Classic milk tea with brown sugar and boba.", "price": "$0.00", "image": "" },
+        { "name": "Passionfruit Pineapple", "desc": "Bright tropical fruit tea.", "price": "$0.00", "image": "" },
+        { "name": "Mango Slushy", "desc": "Frozen mango slushy.", "price": "$0.00", "image": "" },
+        { "name": "Milk Tea", "desc": "Add your milk tea flavor here.", "price": "$0.00", "image": "" }
+      ]
+    },
+    {
+      "id": "icecream",
+      "emoji": "\ud83c\udf66",
+      "name": "ICE CREAM",
+      "cardTitle": "ICE CREAM",
+      "tagline": "Hand-scooped & made with love.",
+      "sectionSubtitle": "Scoops, sundaes, shakes and more.",
+      "image": "/assets/icecream.png",
+      "items": [
+        { "name": "1 Scoop", "desc": "Choose one ice cream flavor.", "price": "$0.00", "image": "" },
+        { "name": "2 Scoops", "desc": "Choose two ice cream flavors.", "price": "$0.00", "image": "" },
+        { "name": "Sundae", "desc": "Ice cream plus your favorite toppings.", "price": "$0.00", "image": "" },
+        { "name": "Shake", "desc": "Thick, cold, and made to order.", "price": "$0.00", "image": "" }
+      ]
+    },
+    {
+      "id": "ricedogs",
+      "emoji": "\ud83c\udf2d",
+      "name": "KOREAN RICE DOGS",
+      "cardTitle": "KOREAN RICE DOGS",
+      "tagline": "Crispy outside, chewy inside.",
+      "sectionSubtitle": "Crispy outside, chewy inside.",
+      "image": "/assets/ricedogs.png",
+      "items": [
+        { "name": "Classic Rice Dog", "desc": "Add filling details here.", "price": "$0.00", "image": "" },
+        { "name": "Potato Rice Dog", "desc": "Crispy potato-coated rice dog.", "price": "$0.00", "image": "" },
+        { "name": "Cheetos Rice Dog", "desc": "Cheetos coating with your choice of filling.", "price": "$0.00", "image": "" },
+        { "name": "Specialty Rice Dog", "desc": "Replace with another menu item.", "price": "$0.00", "image": "" }
+      ]
+    }
+  ]
+}
