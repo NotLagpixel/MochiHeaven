@@ -1,98 +1,23 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mochi Heaven</title>
-  <meta name="description" content="Mochi Heaven | Mochi donuts, boba, ice cream, and Korean rice dogs.">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-  <main id="home" class="pixel-page" aria-label="Mochi Heaven homepage">
-    <div class="design-wrap">
-      <img class="design-image" src="assets/homepage.png" alt="Mochi Heaven homepage">
-
-      <!-- TOP NAVIGATION -->
-      <a class="hotspot home-link" href="#home" aria-label="Home"></a>
-      <a class="hotspot menu-link" href="#menu-info" aria-label="Menu"></a>
-      <a class="hotspot about-link" href="#about" aria-label="About"></a>
-      <a class="hotspot visit-nav-link" href="#visit" aria-label="Visit Us"></a>
-      <a class="hotspot order-nav-link" href="#order" aria-label="Order Online"></a>
-
-      <!-- SOCIAL -->
-      <a class="hotspot instagram-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"></a>
-      <a class="hotspot tiktok-link" href="https://www.tiktok.com/" target="_blank" rel="noreferrer" aria-label="TikTok"></a>
-      <a class="hotspot order-now-link" href="#order" aria-label="Order Now"></a>
-
-      <!-- HERO -->
-      <a class="hotspot visit-hero-link" href="#visit" aria-label="Visit Us"></a>
-
-      <!-- CATEGORY FILTERS -->
-      <button class="hotspot filter-all" type="button" data-category="all" aria-label="All menu categories"></button>
-      <button class="hotspot filter-donuts" type="button" data-category="donuts" aria-label="Mochi Donuts"></button>
-      <button class="hotspot filter-boba" type="button" data-category="boba" aria-label="Boba"></button>
-      <button class="hotspot filter-icecream" type="button" data-category="icecream" aria-label="Ice Cream"></button>
-      <button class="hotspot filter-ricedogs" type="button" data-category="ricedogs" aria-label="Rice Dogs"></button>
-
-      <!-- VIEW MENU BUTTONS -->
-      <button class="hotspot view-donuts" type="button" data-menu="donuts" aria-label="View Donuts"></button>
-      <button class="hotspot view-boba" type="button" data-menu="boba" aria-label="View Boba"></button>
-      <button class="hotspot view-icecream" type="button" data-menu="icecream" aria-label="View Ice Cream"></button>
-      <button class="hotspot view-ricedogs" type="button" data-menu="ricedogs" aria-label="View Rice Dogs"></button>
-    </div>
-  </main>
-
-  <section class="content-section" id="menu-info">
-    <div class="content-card">
-      <p class="eyebrow">OUR MENU</p>
-      <h2>Full Menu</h2>
-      <p>This section is ready for the complete Mochi Heaven menu. The homepage above stays visually identical to your design.</p>
-    </div>
-  </section>
-
-  <section class="content-section alt" id="about">
-    <div class="content-card">
-      <p class="eyebrow">ABOUT MOCHI HEAVEN</p>
-      <h2>Sweet treats, all in one place.</h2>
-      <p>Add your real Mochi Heaven story here.</p>
-    </div>
-  </section>
-
-  <section class="content-section" id="visit">
-    <div class="content-card split">
-      <div>
-        <p class="eyebrow">VISIT US</p>
-        <h2>Come grab a treat.</h2>
-        <p>Replace these placeholders with the actual store details.</p>
-      </div>
-      <div class="details">
-        <div><small>ADDRESS</small><strong>Your store address</strong></div>
-        <div><small>HOURS</small><strong>Your store hours</strong></div>
-        <div><small>PHONE</small><strong>Your phone number</strong></div>
-        <div><small>WEBSITE</small><strong>trymochiheaven.com</strong></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="content-section alt" id="order">
-    <div class="content-card">
-      <p class="eyebrow">ORDER ONLINE</p>
-      <h2>Ready when you are.</h2>
-      <button class="real-button" id="startOrder">Start Order</button>
-    </div>
-  </section>
-
-  <div class="modal" id="menuModal" aria-hidden="true">
-    <div class="modal-backdrop" data-close></div>
-    <div class="modal-card" role="dialog" aria-modal="true">
-      <button class="modal-close" data-close aria-label="Close">×</button>
-      <p class="eyebrow">MOCHI HEAVEN MENU</p>
-      <h2 id="modalTitle"></h2>
-      <div id="modalItems"></div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mochi Heaven</title><link rel="stylesheet" href="styles.css"></head>
+<body class="home-body">
+<main class="pixel-home"><div class="home-canvas">
+<img src="assets/homepage.png" class="home-image" alt="Mochi Heaven homepage">
+<a class="hotspot hs-home" href="index.html"></a>
+<a class="hotspot hs-menu" href="menu.html"></a>
+<a class="hotspot hs-about" href="about.html"></a>
+<a class="hotspot hs-visit" href="visit.html"></a>
+<a class="hotspot hs-order-nav" href="#" data-order></a>
+<a class="hotspot hs-instagram" href="https://instagram.com/" target="_blank"></a>
+<a class="hotspot hs-tiktok" href="https://www.tiktok.com/" target="_blank"></a>
+<a class="hotspot hs-order" href="#" data-order></a>
+<a class="hotspot hs-visit-hero" href="visit.html"></a>
+<a class="hotspot hs-filter-all" href="menu.html"></a>
+<a class="hotspot hs-filter-donuts" href="menu.html#donuts"></a>
+<a class="hotspot hs-filter-boba" href="menu.html#boba"></a>
+<a class="hotspot hs-filter-icecream" href="menu.html#icecream"></a>
+<a class="hotspot hs-filter-ricedogs" href="menu.html#ricedogs"></a>
+<a class="hotspot hs-view-donuts" href="menu.html#donuts"></a>
+<a class="hotspot hs-view-boba" href="menu.html#boba"></a>
+<a class="hotspot hs-view-icecream" href="menu.html#icecream"></a>
+<a class="hotspot hs-view-ricedogs" href="menu.html#ricedogs"></a>
+</div></main><script src="script.js"></script></body></html>
