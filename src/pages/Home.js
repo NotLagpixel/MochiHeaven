@@ -118,7 +118,11 @@ export default function Home() {
               >
                 <h3><span className="fe">{c.emoji}</span> {c.cardTitle}</h3>
                 <div className="image-box">
-                  <img src={c.image?.startsWith("/assets") ? PUB + c.image : c.image} alt={c.cardTitle} />
+                  {c.image ? (
+                    <img src={c.image.startsWith("/assets") ? PUB + c.image : c.image} alt={c.cardTitle} />
+                  ) : (
+                    <span>ADD CATEGORY PHOTO</span>
+                  )}
                 </div>
                 <p>{c.tagline}</p>
                 <button
@@ -126,7 +130,7 @@ export default function Home() {
                   onClick={() => navigate(`/menu#${c.id}`)}
                   data-testid={`view-${c.id}`}
                 >
-                  VIEW {c.name.replace("KOREAN ", "")} <ArrowRight size={15} />
+                  VIEW {(c.name || c.cardTitle).replace("KOREAN ", "")} <ArrowRight size={15} />
                 </button>
               </motion.article>
             ))}

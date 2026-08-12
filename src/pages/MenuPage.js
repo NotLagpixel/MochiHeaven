@@ -60,7 +60,11 @@ export default function MenuPage() {
               </button>
             </div>
             <div className="category-banner">
-              <img src={c.image?.startsWith("/assets") ? PUB + c.image : c.image} alt={c.cardTitle} />
+              {c.image ? (
+                <img src={c.image.startsWith("/assets") ? PUB + c.image : c.image} alt={c.cardTitle} />
+              ) : (
+                <span>ADD CATEGORY PHOTO</span>
+              )}
             </div>
             <div className="product-grid">
               {c.items.map((item, i) => (

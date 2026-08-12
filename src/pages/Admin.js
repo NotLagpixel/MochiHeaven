@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Lock, Save, Download, Upload, RotateCcw, Plus, Trash2,
+  Lock, Save, Download, Upload, RotateCcw, Plus, Trash2, FolderPlus,
   ExternalLink, Image as ImageIcon, Eye, LogOut, Check,
 } from "lucide-react";
 import {
@@ -167,6 +167,26 @@ export default function Admin() {
       });
       return { ...d, categories };
     });
+  const addCategory = () =>
+    setDraft((d) => {
+      const id = `category-${Date.now().toString(36)}`;
+      const category = {
+        id,
+        emoji: "✨",
+        name: "NEW CATEGORY",
+        cardTitle: "NEW CATEGORY",
+        tagline: "Add a short description.",
+        sectionSubtitle: "Add a menu section subtitle.",
+        image: "",
+        items: [],
+      };
+      return { ...d, categories: [...d.categories, category] };
+    });
+  const removeCategory = (ci) => {
+    const category = draft.categories[ci];
+    if (!window.confirm(`Remove “${category.cardTitle}” and all of its menu cards?`)) return;
+    setDraft((d) => ({ ...d, categories: d.categories.filter((_, idx) => idx !== ci) }));
+  };
   const addItem = (ci) =>
     setDraft((d) => {
       const categories = d.categories.map((c, idx) =>
@@ -356,11 +376,25 @@ export default function Admin() {
 
         {tab === "menu" && (
           <>
+            <section className="admin-block">
+              <div className="items-head">
+                <div>
+                  <h3>Menu categories</h3>
+                  <small className="muted">Create a category, edit its details below, then add as many menu cards as you need.</small>
+                </div>
+                <button className="btn-solid" onClick={addCategory} data-testid="admin-add-category">
+                  <FolderPlus size={15} /> Add category
+                </button>
+              </div>
+            </section>
             {draft.categories.map((c, ci) => (
               <section className="admin-block" key={c.id} data-testid={`admin-cat-${c.id}`}>
                 <div className="cat-head">
                   <input className="field emoji" value={c.emoji} onChange={(e) => setCat(ci, { emoji: e.target.value })} />
                   <input className="field cat-name" value={c.cardTitle} onChange={(e) => setCat(ci, { cardTitle: e.target.value, name: e.target.value })} />
+                  <button className="icon-btn danger" onClick={() => removeCategory(ci)} aria-label={`Remove ${c.cardTitle}`} title="Remove category">
+                    <Trash2 size={17} />
+                  </button>
                 </div>
                 <div className="grid2">
                   <div><label className="field-label">Card tagline</label>
@@ -373,7 +407,7 @@ export default function Admin() {
 
                 <div className="items-head">
                   <span>Items</span>
-                  <button className="btn-ghost sm" onClick={() => addItem(ci)} data-testid={`admin-add-item-${c.id}`}><Plus size={14} /> Add item</button>
+                  <button className="btn-ghost sm" onClick={() => addItem(ci)} data-testid={`admin-add-item-${c.id}`}><Plus size={14} /> Add menu card</button>
                 </div>
                 <div className="items-list">
                   {c.items.map((it, ii) => (
