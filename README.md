@@ -27,22 +27,23 @@ yarn build        # production build in /build
 There is **no login button anywhere on the public site** — visitors can't see it.
 
 - Open the secret URL: **`/admin`** (e.g. `https://yoursite.vercel.app/admin`)
-- Enter your password. Default: **`mochiheaven`**
-- Click **Password** in the top bar to change it right away (keep it and the `/admin` URL private).
+- Enter the password stored in Vercel as the sensitive `ADMIN_PASSWORD` environment variable.
+- Authentication is verified by a Vercel Function and kept in a secure, HTTP-only session cookie.
 
 ### What you can edit
 - **Site Info:** hero text, customer favorite, social links, About story + photo, Visit address/hours/phone/website/map, highlight strip, and the **Order Online** link.
 - **Menu Items:** every category and item — name, description, price, photos (upload or paste a URL), add/remove items.
 
-### Saving vs. Publishing (important for a static site)
-- **Save** → changes appear instantly, but only in **your** browser (great for editing/preview).
-- **Publish** → downloads an updated **`content.json`**. To make changes visible to **everyone**:
-  1. Replace `frontend/public/content.json` with the downloaded file.
-  2. Redeploy (push to GitHub → Vercel auto-redeploys).
+### Saving vs. Publishing
+- **Save** → changes appear in your browser as a private preview.
+- **Publish** → writes the content to the connected public Vercel Blob store and makes it live for everyone immediately.
+- Uploaded menu and site images are stored in Vercel Blob automatically (maximum 3 MB each; PNG, JPEG, WebP, or GIF).
 - **Import** lets you load a `content.json` back into the editor.
 - **Reset** discards local edits and reloads the currently published content.
 
-> Why this flow? Static Vercel sites have no database, so published content lives in `content.json`. This keeps the site 100% free to host while still letting you edit everything.
+### Required Vercel configuration
+- Connect a public Vercel Blob store to Production and Preview environments.
+- Add a sensitive `ADMIN_PASSWORD` environment variable to Production and Preview.
 
 ## The Order Online button
 Set your ordering link in **Admin → Site Info → Order Online link**. If empty, the button shows a friendly “coming soon” popup instead of breaking.

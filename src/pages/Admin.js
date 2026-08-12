@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Lock, Save, Download, Upload, RotateCcw, KeyRound, Plus, Trash2,
+  Lock, Save, Download, Upload, RotateCcw, Plus, Trash2,
   ExternalLink, Image as ImageIcon, Eye, LogOut, Check,
 } from "lucide-react";
 import {
-  useContent, getAdminPassword, setAdminPassword, DEFAULT_ADMIN_PASSWORD,
+  useContent,
 } from "../context/ContentContext";
-
-const SS_KEY = "mochi_admin_unlocked";
 
 function readFileAsDataURL(file) {
   return new Promise((resolve, reject) => {
@@ -19,11 +17,26 @@ function readFileAsDataURL(file) {
   });
 }
 
-function ImageField({ value, onChange, label = "Image" }) {
+function ImageField({ value, onChange, onError }) {
   const ref = useRef();
   const handleFile = async (e) => {
     const file = e.target.files?.[0];
-    if (file) onChange(await readFileAsDataURL(file));
+    if (!file) return;
+    try {
+      const dataUrl = await readFileAsDataURL(file);
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dataUrl, name: file.name.replace(/\.[^.]+$/, "") }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Upload failed");
+      onChange(data.url);
+    } catch (error) {
+      onError?.(error.message);
+    } finally {
+      e.target.value = "";
+    }
   };
   const preview = value?.startsWith("/assets") ? (process.env.PUBLIC_URL || "") + value : value;
   return (
@@ -54,7 +67,8 @@ function ImageField({ value, onChange, label = "Image" }) {
 
 export default function Admin() {
   const { content, saveLocal, clearLocal } = useContent();
-  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem(SS_KEY) === "1");
+  const [unlocked, setUnlocked] = useState(false);
+  const [checkingSession, setCheckingSession] = useState(true);
   const [pwInput, setPwInput] = useState("");
   const [pwError, setPwError] = useState("");
   const [draft, setDraft] = useState(null);
@@ -66,27 +80,43 @@ export default function Admin() {
     if (content) setDraft(JSON.parse(JSON.stringify(content)));
   }, [content]);
 
+  useEffect(() => {
+    fetch("/api/session")
+      .then((res) => res.json())
+      .then((data) => setUnlocked(!!data.authenticated))
+      .finally(() => setCheckingSession(false));
+  }, []);
+
   const flash = (msg) => {
     setToast(msg);
     setTimeout(() => setToast(""), 2200);
   };
 
-  const tryUnlock = (e) => {
+  const tryUnlock = async (e) => {
     e.preventDefault();
-    if (pwInput === getAdminPassword()) {
-      sessionStorage.setItem(SS_KEY, "1");
+    setPwError("");
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pwInput }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Login failed");
       setUnlocked(true);
-      setPwError("");
-    } else {
-      setPwError("Incorrect password. Try again.");
+      setPwInput("");
+    } catch (error) {
+      setPwError(error.message);
     }
   };
 
-  const lock = () => {
-    sessionStorage.removeItem(SS_KEY);
+  const lock = async () => {
+    await fetch("/api/logout", { method: "POST" });
     setUnlocked(false);
     setPwInput("");
   };
+
+  if (checkingSession) return null;
 
   if (!unlocked) {
     return (
@@ -106,7 +136,7 @@ export default function Admin() {
           />
           {pwError && <span className="gate-error" data-testid="admin-password-error">{pwError}</span>}
           <button className="order-pill big" type="submit" data-testid="admin-login-btn">Unlock</button>
-          <small className="gate-hint">Default password: <code>{DEFAULT_ADMIN_PASSWORD}</code> — change it after first login.</small>
+          <small className="gate-hint">Use the secure admin password configured in Vercel.</small>
         </form>
       </div>
     );
@@ -157,16 +187,20 @@ export default function Admin() {
     flash("Saved! Changes are live in this browser preview.");
   };
 
-  const publish = () => {
+  const publish = async () => {
     saveLocal(draft);
-    const blob = new Blob([JSON.stringify(draft, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "content.json";
-    a.click();
-    URL.revokeObjectURL(url);
-    flash("Downloaded content.json — replace it in the repo & redeploy to publish.");
+    try {
+      const res = await fetch("/api/content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(draft),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Publish failed");
+      flash("Published! Changes are now live for everyone.");
+    } catch (error) {
+      flash(error.message);
+    }
   };
 
   const doImport = async (e) => {
@@ -189,14 +223,6 @@ export default function Admin() {
     flash("Reset to published content.");
   };
 
-  const changePw = () => {
-    const np = window.prompt("Enter a new admin password:");
-    if (np && np.trim()) {
-      setAdminPassword(np.trim());
-      flash("Password updated.");
-    }
-  };
-
   return (
     <div className="admin" data-testid="admin-panel">
       <header className="admin-bar">
@@ -209,7 +235,6 @@ export default function Admin() {
           <button className="btn-ghost" onClick={() => importRef.current?.click()}><Upload size={15} /> Import</button>
           <input ref={importRef} type="file" accept="application/json" hidden onChange={doImport} />
           <button className="btn-ghost" onClick={resetPublished}><RotateCcw size={15} /> Reset</button>
-          <button className="btn-ghost" onClick={changePw}><KeyRound size={15} /> Password</button>
           <button className="btn-ghost" onClick={lock}><LogOut size={15} /> Lock</button>
           <button className="btn-solid" onClick={save} data-testid="admin-save-btn"><Save size={15} /> Save</button>
           <button className="btn-solid pub" onClick={publish} data-testid="admin-publish-btn"><Download size={15} /> Publish</button>
@@ -217,9 +242,8 @@ export default function Admin() {
       </header>
 
       <div className="admin-note">
-        <strong>How publishing works:</strong> “Save” updates your live preview in this browser.
-        To make changes visible to <em>everyone</em>, click <strong>Publish</strong> to download
-        <code> content.json</code>, replace the file in <code>frontend/public/content.json</code>, and redeploy on Vercel.
+        <strong>How publishing works:</strong> “Save” keeps a browser preview. Click <strong>Publish</strong>
+        to update the live website immediately for everyone—no redeploy is needed.
       </div>
 
       <nav className="admin-tabs">
@@ -279,7 +303,7 @@ export default function Admin() {
               <label className="field-label">Story / body</label>
               <textarea className="field" rows={4} value={draft.site.about.body} onChange={(e) => setNested("about", { body: e.target.value })} />
               <label className="field-label">Store / team photo</label>
-              <ImageField value={draft.site.about.photo} onChange={(v) => setNested("about", { photo: v })} />
+              <ImageField value={draft.site.about.photo} onChange={(v) => setNested("about", { photo: v })} onError={flash} />
             </section>
 
             <section className="admin-block">
@@ -345,7 +369,7 @@ export default function Admin() {
                     <input className="field" value={c.sectionSubtitle} onChange={(e) => setCat(ci, { sectionSubtitle: e.target.value })} /></div>
                 </div>
                 <label className="field-label">Category banner image</label>
-                <ImageField value={c.image} onChange={(v) => setCat(ci, { image: v })} />
+                <ImageField value={c.image} onChange={(v) => setCat(ci, { image: v })} onError={flash} />
 
                 <div className="items-head">
                   <span>Items</span>
@@ -354,7 +378,7 @@ export default function Admin() {
                 <div className="items-list">
                   {c.items.map((it, ii) => (
                     <div className="item-row" key={ii}>
-                      <ImageField value={it.image} onChange={(v) => setItem(ci, ii, { image: v })} />
+                      <ImageField value={it.image} onChange={(v) => setItem(ci, ii, { image: v })} onError={flash} />
                       <div className="item-fields">
                         <div className="row">
                           <input className="field" placeholder="Name" value={it.name} onChange={(e) => setItem(ci, ii, { name: e.target.value })} />

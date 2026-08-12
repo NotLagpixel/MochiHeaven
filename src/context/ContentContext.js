@@ -28,7 +28,7 @@ export function ContentProvider({ children }) {
   useEffect(() => {
     let cancelled = false;
     async function load() {
-      // 1) Local unpublished edits (admin only, this browser)
+      // 1) Local unpublished edits (admin preview in this browser)
       try {
         const raw = localStorage.getItem(LS_KEY);
         if (raw) {
@@ -37,9 +37,9 @@ export function ContentProvider({ children }) {
           return;
         }
       } catch (e) {}
-      // 2) Published content.json (what every visitor sees)
+      // 2) Shared live content from Vercel Blob
       try {
-        const res = await fetch(`${process.env.PUBLIC_URL || ""}/content.json?t=${Date.now()}`);
+        const res = await fetch(`/api/content?t=${Date.now()}`, { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           if (!cancelled) setContent(mergeDefaults(defaultContent, data));
@@ -65,7 +65,7 @@ export function ContentProvider({ children }) {
       localStorage.removeItem(LS_KEY);
     } catch (e) {}
     try {
-      const res = await fetch(`${process.env.PUBLIC_URL || ""}/content.json?t=${Date.now()}`);
+      const res = await fetch(`/api/content?t=${Date.now()}`, { cache: "no-store" });
       const data = res.ok ? await res.json() : {};
       setContent(mergeDefaults(defaultContent, data));
     } catch (e) {
