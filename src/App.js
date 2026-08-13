@@ -5,6 +5,7 @@ import { useContent } from "./context/ContentContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import OrderModal from "./components/OrderModal";
+import NewsletterModal from "./components/NewsletterModal";
 import Home from "./pages/Home";
 import MenuPage from "./pages/MenuPage";
 import About from "./pages/About";
@@ -58,6 +59,7 @@ export default function App() {
       </Routes>
       {!isAdmin && <Footer />}
       <OrderModal open={orderOpen} onClose={() => setOrderOpen(false)} />
+      {!isAdmin && <NewsletterModal />}
     </OrderContext.Provider>
   );
 }
