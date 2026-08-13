@@ -101,13 +101,34 @@
 .newsletter-card .eyebrow{color:#e6d6ff;position:relative}
 .newsletter-card h2{position:relative;font-size:clamp(2.2rem,4vw,3rem);margin:0 0 12px;color:#fff}
 .newsletter-sub{position:relative;color:#eadffb;max-width:560px;margin:0 auto 26px;line-height:1.65;font-size:1.02rem}
-.newsletter-form{position:relative;display:flex;gap:12px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.newsletter-input{flex:1;min-width:240px;border:0;border-radius:999px;padding:15px 22px;font-size:1rem;color:var(--ink);outline:none;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.newsletter-form{position:relative;display:flex;gap:12px;max-width:760px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.newsletter-input{flex:1;min-width:210px;border:0;border-radius:999px;padding:15px 22px;font-size:1rem;color:var(--ink);outline:none;box-shadow:0 6px 16px rgba(0,0,0,.12)}
 .newsletter-input:focus{box-shadow:0 0 0 3px rgba(255,255,255,.5)}
 .newsletter .order-pill{background:#fff;color:var(--deep);box-shadow:0 8px 20px rgba(0,0,0,.18)}
 .newsletter .order-pill:hover{background:#f3ecff}
 .newsletter-success{position:relative;display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#fff;font-weight:800;padding:15px 24px;border-radius:16px;max-width:560px;margin:0 auto;line-height:1.5}
 .newsletter-error{position:relative;display:block;margin-top:12px;color:#ffd9e4;font-weight:800;font-size:.88rem}
+
+/* ---------- FIRST-VISIT NEWSLETTER MODAL ---------- */
+.newsletter-modal{position:fixed;inset:0;z-index:250;display:grid;place-items:center;padding:20px}
+.newsletter-modal-bg{position:absolute;inset:0;width:100%;height:100%;border:0;background:rgba(33,18,61,.62);backdrop-filter:blur(6px)}
+.newsletter-modal-card{position:relative;width:min(560px,100%);max-height:calc(100vh - 40px);overflow-y:auto;background:#fff;border:1px solid var(--line);border-radius:30px;padding:42px 42px 32px;text-align:center;box-shadow:0 34px 90px rgba(30,15,58,.42);animation:newsletter-pop .42s cubic-bezier(.22,1,.36,1)}
+.newsletter-modal-card:before{content:"";position:absolute;top:-90px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(127,89,198,.15),transparent 70%);pointer-events:none}
+.newsletter-modal-close{position:absolute;z-index:2;right:16px;top:15px;width:38px;height:38px;border:0;border-radius:50%;background:var(--lavender2);color:var(--deep);display:grid;place-items:center;transition:background .2s,transform .2s}
+.newsletter-modal-close:hover{background:var(--lavender);transform:rotate(6deg)}
+.newsletter-modal-icon{position:relative;width:66px;height:66px;border-radius:50%;margin:0 auto 16px;background:linear-gradient(135deg,var(--purple),var(--deep));color:#fff;display:grid;place-items:center;box-shadow:0 12px 28px rgba(94,53,165,.28)}
+.newsletter-modal-card h2{position:relative;margin:0 0 10px;color:var(--deep);font-size:clamp(2rem,5vw,2.7rem);line-height:1}
+.newsletter-modal-copy{position:relative;max-width:430px;margin:0 auto 24px;color:var(--muted);line-height:1.55}
+.newsletter-modal-form{display:grid;gap:15px;text-align:left}
+.newsletter-modal-form label{display:grid;gap:6px;color:var(--ink);font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.newsletter-modal-form input{width:100%;border:1px solid var(--line);border-radius:13px;padding:13px 14px;background:#fff;color:var(--ink);font:inherit;outline:none;text-transform:none;letter-spacing:0;transition:border .2s,box-shadow .2s}
+.newsletter-modal-form input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(127,89,198,.14)}
+.newsletter-modal-submit{width:100%;justify-content:center;margin-top:2px;padding:14px 24px}
+.newsletter-modal-submit:disabled{cursor:wait;opacity:.72;transform:none}
+.newsletter-modal-error{margin:0;color:#c52d5d;font-size:.85rem;font-weight:800;text-align:center}
+.newsletter-modal-success{display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #b8e1ca;border-radius:16px;padding:17px;background:#effaf3;color:#237344;font-weight:900;line-height:1.4}
+.newsletter-modal-later{margin-top:17px;border:0;background:none;color:var(--muted);font-weight:800;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}
+@keyframes newsletter-pop{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 
 /* ---------- SHARED PAGE HERO ---------- */
 .page-hero{padding:70px 0 46px;background:linear-gradient(135deg,#faf7ff,#ece0fb);text-align:center;border-bottom:1px solid #eee3fb}
@@ -279,4 +300,6 @@ textarea.field{resize:vertical;font-family:inherit}
   .visit-grid,.about-features,.grid2,.item-row{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;gap:6px}
   .admin-actions{width:100%}
+  .newsletter-modal{padding:12px}
+  .newsletter-modal-card{max-height:calc(100vh - 24px);padding:34px 20px 25px;border-radius:24px}
 }

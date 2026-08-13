@@ -6,12 +6,18 @@ import { useContent } from "../context/ContentContext";
 export default function Newsletter() {
   const { content } = useContent();
   const n = content.site.newsletter || {};
+  const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
 
   const submit = async (e) => {
     e.preventDefault();
+    const cleanFirstName = firstName.trim();
+    if (!cleanFirstName) {
+      setError("Please enter your first name.");
+      return;
+    }
     const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!valid) {
       setError("Please enter a valid email address.");
@@ -24,13 +30,14 @@ export default function Newsletter() {
         await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ firstName: cleanFirstName, email: email.trim() }),
         });
       } catch (err) {
         /* form services may block CORS; treat as fire-and-forget */
       }
     }
     setDone(true);
+    setFirstName("");
     setEmail("");
   };
 
@@ -56,11 +63,22 @@ export default function Newsletter() {
           ) : (
             <form className="newsletter-form" onSubmit={submit}>
               <input
+                type="text"
+                className="newsletter-input"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                autoComplete="given-name"
+                aria-label="First name"
+                data-testid="newsletter-first-name"
+              />
+              <input
                 type="email"
                 className="newsletter-input"
                 placeholder={n.placeholder || "you@email.com"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
                 aria-label="Email address"
                 data-testid="newsletter-email"
               />
