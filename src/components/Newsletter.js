@@ -63,24 +63,24 @@ export default function Newsletter() {
           ) : (
             <form className="newsletter-form" onSubmit={submit}>
               <input
-                type="text"
-                className="newsletter-input"
-                placeholder="First name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                autoComplete="given-name"
-                aria-label="First name"
-                data-testid="newsletter-first-name"
-              />
-              <input
                 type="email"
-                className="newsletter-input"
+                className="newsletter-input newsletter-email-input"
                 placeholder={n.placeholder || "you@email.com"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 aria-label="Email address"
                 data-testid="newsletter-email"
+              />
+              <input
+                type="text"
+                className="newsletter-input newsletter-name-input"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                autoComplete="given-name"
+                aria-label="First name"
+                data-testid="newsletter-first-name"
               />
               <button className="order-pill" type="submit" data-testid="newsletter-submit">
                 {n.buttonText || "Subscribe"} <Send size={15} />

@@ -124,12 +124,12 @@ export default function NewsletterModal() {
         ) : (
           <form className="newsletter-modal-form" onSubmit={submit} noValidate>
             <label>
-              <span>First name</span>
-              <input ref={firstInput} name="firstName" value={form.firstName} onChange={update} autoComplete="given-name" required />
+              <span>Email address</span>
+              <input ref={firstInput} name="email" type="email" value={form.email} onChange={update} autoComplete="email" placeholder="you@email.com" required />
             </label>
             <label>
-              <span>Email address</span>
-              <input name="email" type="email" value={form.email} onChange={update} autoComplete="email" placeholder="you@email.com" required />
+              <span>First name</span>
+              <input name="firstName" value={form.firstName} onChange={update} autoComplete="given-name" required />
             </label>
             {error && <p className="newsletter-modal-error" role="alert">{error}</p>}
             <button className="order-pill newsletter-modal-submit" type="submit" disabled={submitting}>
