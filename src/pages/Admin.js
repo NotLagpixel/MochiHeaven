@@ -167,6 +167,15 @@ export default function Admin() {
       });
       return { ...d, categories };
     });
+  const setSubcategory = (ci, si, patch) =>
+    setDraft((d) => {
+      const categories = d.categories.map((c, idx) => {
+        if (idx !== ci) return c;
+        const subcategories = (c.subcategories || []).map((sub, j) => (j === si ? { ...sub, ...patch } : sub));
+        return { ...c, subcategories };
+      });
+      return { ...d, categories };
+    });
   const addCategory = () =>
     setDraft((d) => {
       const id = `category-${Date.now().toString(36)}`;
@@ -178,6 +187,7 @@ export default function Admin() {
         tagline: "Add a short description.",
         sectionSubtitle: "Add a menu section subtitle.",
         image: "",
+        subcategories: [],
         items: [],
       };
       return { ...d, categories: [...d.categories, category] };
@@ -199,6 +209,29 @@ export default function Admin() {
       const categories = d.categories.map((c, idx) =>
         idx === ci ? { ...c, items: c.items.filter((_, j) => j !== ii) } : c
       );
+      return { ...d, categories };
+    });
+  const addSubcategory = (ci) =>
+    setDraft((d) => {
+      const subcategory = { id: `subcategory-${Date.now().toString(36)}`, name: "New subcategory" };
+      const categories = d.categories.map((c, idx) =>
+        idx === ci ? { ...c, subcategories: [...(c.subcategories || []), subcategory] } : c
+      );
+      return { ...d, categories };
+    });
+  const removeSubcategory = (ci, si) =>
+    setDraft((d) => {
+      const category = d.categories[ci];
+      const removed = (category.subcategories || [])[si];
+      if (!removed) return d;
+      const categories = d.categories.map((c, idx) => {
+        if (idx !== ci) return c;
+        return {
+          ...c,
+          subcategories: (c.subcategories || []).filter((_, j) => j !== si),
+          items: c.items.map((item) => item.subcategoryId === removed.id ? { ...item, subcategoryId: "" } : item),
+        };
+      });
       return { ...d, categories };
     });
 
@@ -405,6 +438,35 @@ export default function Admin() {
                 <label className="field-label">Category banner image</label>
                 <ImageField value={c.image} onChange={(v) => setCat(ci, { image: v })} onError={flash} />
 
+                <div className="subcategory-admin">
+                  <div className="items-head">
+                    <div>
+                      <span>Subcategories</span>
+                      <small className="muted">Optional. Add groups such as Fruit Teas or Milk Teas, then assign items below.</small>
+                    </div>
+                    <button className="btn-ghost sm" onClick={() => addSubcategory(ci)} type="button" data-testid={`admin-add-subcategory-${c.id}`}>
+                      <FolderPlus size={14} /> Add subcategory
+                    </button>
+                  </div>
+                  {(c.subcategories || []).length > 0 && (
+                    <div className="subcategory-list">
+                      {(c.subcategories || []).map((sub, si) => (
+                        <div className="subcategory-row" key={sub.id}>
+                          <input
+                            className="field"
+                            aria-label="Subcategory name"
+                            value={sub.name}
+                            onChange={(e) => setSubcategory(ci, si, { name: e.target.value })}
+                          />
+                          <button className="icon-btn danger" type="button" onClick={() => removeSubcategory(ci, si)} aria-label={`Remove ${sub.name}`}>
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
                 <div className="items-head">
                   <span>Items</span>
                   <button className="btn-ghost sm" onClick={() => addItem(ci)} data-testid={`admin-add-item-${c.id}`}><Plus size={14} /> Add menu card</button>
@@ -420,6 +482,15 @@ export default function Admin() {
                           <button className="icon-btn danger" onClick={() => removeItem(ci, ii)} aria-label="Remove"><Trash2 size={16} /></button>
                         </div>
                         <input className="field" placeholder="Description" value={it.desc} onChange={(e) => setItem(ci, ii, { desc: e.target.value })} />
+                        {(c.subcategories || []).length > 0 && (
+                          <div>
+                            <label className="field-label">Subcategory</label>
+                            <select className="field" value={it.subcategoryId || ""} onChange={(e) => setItem(ci, ii, { subcategoryId: e.target.value })}>
+                              <option value="">No subcategory</option>
+                              {(c.subcategories || []).map((sub) => <option key={sub.id} value={sub.id}>{sub.name}</option>)}
+                            </select>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}

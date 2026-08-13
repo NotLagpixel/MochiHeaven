@@ -14,6 +14,26 @@ function ItemImage({ item }) {
   return <div className="item-placeholder">ADD PHOTO</div>;
 }
 
+function ProductGrid({ category, items, testPrefix = "product" }) {
+  if (!items.length) return null;
+  return (
+    <div className="product-grid">
+      {items.map(({ item, index }, position) => (
+        <Reveal key={index} delay={position * 0.05}>
+          <article className="product-card" data-testid={`${testPrefix}-${category.id}-${index}`}>
+            <div className={`product-media ${category.id}`}>
+              <ItemImage item={item} />
+            </div>
+            <h3>{item.name}</h3>
+            <p>{item.desc}</p>
+            <strong>{item.price}</strong>
+          </article>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
 export default function MenuPage() {
   const { content } = useContent();
   const { openOrder } = useOrder();
@@ -66,20 +86,27 @@ export default function MenuPage() {
                 <span>ADD CATEGORY PHOTO</span>
               )}
             </div>
-            <div className="product-grid">
-              {c.items.map((item, i) => (
-                <Reveal key={i} delay={i * 0.05}>
-                  <article className="product-card" data-testid={`product-${c.id}-${i}`}>
-                    <div className={`product-media ${c.id}`}>
-                      <ItemImage item={item} />
-                    </div>
-                    <h3>{item.name}</h3>
-                    <p>{item.desc}</p>
-                    <strong>{item.price}</strong>
-                  </article>
-                </Reveal>
+            <ProductGrid
+              category={c}
+              items={c.items.map((item, index) => ({ item, index })).filter(({ item }) => (
+                !item.subcategoryId || !(c.subcategories || []).some((sub) => sub.id === item.subcategoryId)
               ))}
-            </div>
+            />
+            {(c.subcategories || []).map((subcategory) => {
+              const groupedItems = c.items
+                .map((item, index) => ({ item, index }))
+                .filter(({ item }) => item.subcategoryId === subcategory.id);
+              if (!subcategory.name?.trim() || !groupedItems.length) return null;
+              return (
+                <div className="menu-subcategory" key={subcategory.id}>
+                  <div className="menu-subcategory-heading">
+                    <h3>{subcategory.name}</h3>
+                    <span />
+                  </div>
+                  <ProductGrid category={c} items={groupedItems} testPrefix={`product-${subcategory.id}`} />
+                </div>
+              );
+            })}
           </div>
         </section>
       ))}
