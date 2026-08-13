@@ -162,6 +162,10 @@
 .product-card h3{margin:14px 0 5px;color:var(--deep);font-size:1.15rem}
 .product-card p{color:var(--muted);font-size:.88rem;line-height:1.45;min-height:40px;margin:0 0 8px}
 .product-card strong{color:var(--purple);font-size:1.2rem}
+.menu-subcategory{margin-top:36px}
+.menu-subcategory-heading{display:flex;align-items:center;gap:16px;margin:0 0 18px}
+.menu-subcategory-heading h3{margin:0;color:var(--deep);font-size:1.55rem}
+.menu-subcategory-heading span{height:1px;flex:1;background:var(--line)}
 .menu-cta{padding:70px 0;background:linear-gradient(135deg,#f7f1ff,#e8d9ff);text-align:center}
 .menu-cta h2{font-size:2.6rem;color:var(--deep);margin:0 0 8px}
 .menu-cta p{color:var(--muted);margin:0 0 22px}
@@ -260,6 +264,11 @@ textarea.field{resize:vertical;font-family:inherit}
 .cat-head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
 .items-head{display:flex;justify-content:space-between;align-items:center;margin:20px 0 12px;font-weight:900;color:var(--deep)}
 .items-list{display:grid;gap:14px}
+.subcategory-admin{margin-top:22px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--lavender2)}
+.subcategory-admin .items-head{margin:0 0 12px}
+.subcategory-admin .items-head>div{display:grid;gap:2px}
+.subcategory-list{display:grid;gap:9px}
+.subcategory-row{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:center}
 .item-row{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--lavender2)}
 .item-fields{display:grid;gap:8px}
 .icon-btn{border:1px solid var(--line);background:#fff;border-radius:10px;width:42px;height:42px;display:grid;place-items:center;color:var(--muted);flex-shrink:0}
@@ -302,6 +311,8 @@ textarea.field{resize:vertical;font-family:inherit}
   .visit-grid,.about-features,.grid2,.item-row{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;gap:6px}
   .admin-actions{width:100%}
+  .subcategory-admin .items-head{align-items:stretch}
+  .subcategory-row{grid-template-columns:1fr auto}
   .newsletter-modal{padding:12px}
   .newsletter-modal-card{max-height:calc(100vh - 24px);padding:34px 20px 25px;border-radius:24px}
 }
